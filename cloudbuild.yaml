@@ -1,3 +1,6 @@
+options:
+  logging: CLOUD_LOGGING_ONLY
+
 steps:
   - name: "gcr.io/cloud-builders/docker"
     args: [
@@ -20,8 +23,6 @@ steps:
         BACKEND_URL=$(gcloud run services describe bank-backend \
           --region us-central1 \
           --format='value(status.url)')
-
-        echo "Deploying frontend with API_BASE_URL=$BACKEND_URL"
 
         gcloud run deploy bank-frontend \
           --image us-central1-docker.pkg.dev/gcp-class-17/frontend/frontend-image \
