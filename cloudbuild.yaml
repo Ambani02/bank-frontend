@@ -1,3 +1,19 @@
+logsBucket: "gs://gcp-class-17-cloudbuild-logs"
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/gcp-class-17/frontend/frontend-image', '.']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'us-central1-docker.pkg.dev/gcp-class-17/frontend/frontend-image']
+
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    args: [
+      'gcloud', 'run', 'deploy', 'bank-frontend',
+      '--image', 'us-central1-docker.pkg.dev/gcp-class-17/frontend/frontend-image',
+      '--region', 'us-central1',
+      '--allow-unauthenticated'
+    ]
+
 
 substitutions:
   _REGION: us-central1        
