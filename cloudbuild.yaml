@@ -1,6 +1,9 @@
 options:
   logging: CLOUD_LOGGING_ONLY
 
+substitutions:
+  _BACKEND_URL: "https://bank-backend-4uybablfqq-uc.a.run.app"
+
 steps:
   - name: gcr.io/cloud-builders/docker
     args: [
@@ -29,4 +32,4 @@ steps:
           --image us-central1-docker.pkg.dev/gcp-class-17/bank-frontend/frontend-image:${SHORT_SHA} \
           --region us-central1 \
           --allow-unauthenticated \
-          --set-env-vars "API_BASE_URL=${BACKEND_URL}"
+          --set-env-vars "API_BASE_URL=${_BACKEND_URL}"
